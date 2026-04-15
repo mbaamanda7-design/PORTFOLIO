@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amanda MENGUE — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue: #0057FF;
+      --blue-dark: #0040CC;
+      --blue-light: #4D8BFF;
+      --fuchsia: #FF0090;
+      --fuchsia-light: #FF4DB8;
+      --fuchsia-pale: #FFD6EF;
+      --white: #FFFFFF;
+      --cream: #FAFAFA;
+      --gray-light: #F0F0F5;
+      --gray: #888;
+      --dark: #0A0A1A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--dark); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(250,250,250,0.94); backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--blue);
+    }
+    nav .logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--blue); }
+    nav .logo span { color: var(--fuchsia); }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav ul a { text-decoration: none; color: var(--dark); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    nav ul a:hover { color: var(--fuchsia); }
+
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 8rem 4rem 4rem; position: relative; overflow: hidden; background: var(--white);
+    }
+    .blob1 { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,87,255,0.08) 0%, transparent 70%); top: -200px; right: -200px; pointer-events: none; }
+    .blob2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(255,0,144,0.07) 0%, transparent 70%); bottom: -100px; left: -100px; pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
+    .hero-left { animation: fadeUp 0.8s ease both; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--fuchsia-pale); color: var(--fuchsia); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--fuchsia); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--dark); margin-bottom: 1.2rem; }
+    .hero h1 .blue { color: var(--blue); }
+    .hero h1 .pink { color: var(--fuchsia); }
+    .hero-desc { font-size: 0.95rem; color: var(--gray); font-weight: 300; line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-desc strong { color: var(--dark); font-weight: 600; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--blue); color: var(--white); font-weight: 600; font-size: 0.85rem; padding: 0.9rem 2.2rem; border-radius: 50px; text-decoration: none; transition: all 0.3s; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    .btn-secondary { display: inline-block; background: transparent; color: var(--fuchsia); font-weight: 600; font-size: 0.85rem; padding: 0.9rem 2.2rem; border-radius: 50px; border: 2px solid var(--fuchsia); text-decoration: none; transition: all 0.3s; }
+    .btn-secondary:hover { background: var(--fuchsia); color: var(--white); transform: translateY(-2px); }
+
+    .hero-right { animation: fadeUp 0.8s 0.2s ease both; }
+    .hero-card { background: var(--white); border-radius: 20px; padding: 2.5rem; box-shadow: 0 20px 60px rgba(0,87,255,0.1), 0 4px 20px rgba(255,0,144,0.08); border: 1px solid rgba(0,87,255,0.1); position: relative; }
+    .hero-card::before { content: ''; position: absolute; top: -2px; left: 2rem; right: 2rem; height: 4px; background: linear-gradient(90deg, var(--blue), var(--fuchsia)); border-radius: 50px; }
+    .hero-card-name { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin-bottom: 0.3rem; }
+    .hero-card-title { font-size: 0.82rem; color: var(--gray); margin-bottom: 2rem; font-weight: 300; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .stat-box { border-radius: 12px; padding: 1.2rem; text-align: center; }
+    .stat-box:nth-child(1) { background: rgba(0,87,255,0.07); }
+    .stat-box:nth-child(2) { background: rgba(255,0,144,0.07); }
+    .stat-box:nth-child(3) { background: rgba(255,0,144,0.07); }
+    .stat-box:nth-child(4) { background: rgba(0,87,255,0.07); }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; display: block; line-height: 1; margin-bottom: 0.3rem; }
+    .stat-box:nth-child(odd) .stat-num { color: var(--blue); }
+    .stat-box:nth-child(even) .stat-num { color: var(--fuchsia); }
+    .stat-lbl { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-badge { display: flex; align-items: center; gap: 0.8rem; background: var(--dark); color: var(--white); border-radius: 50px; padding: 0.8rem 1.5rem; font-size: 0.82rem; font-weight: 500; }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #00E676; animation: pulse 2s infinite; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 4rem; }
+    .sec-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fuchsia); font-weight: 600; margin-bottom: 0.6rem; display: block; }
+    .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--dark); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 3rem; }
+    .sec-title .blue { color: var(--blue); }
+    .sec-title .pink { color: var(--fuchsia); }
+    .bar { width: 50px; height: 4px; background: linear-gradient(90deg, var(--blue), var(--fuchsia)); border-radius: 50px; margin-bottom: 3rem; }
+
+    /* ABOUT */
+    .about-bg { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+    .photo-box { aspect-ratio: 3/4; background: linear-gradient(135deg, rgba(0,87,255,0.05), rgba(255,0,144,0.05)); border-radius: 16px; border: 2px dashed rgba(0,87,255,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; color: var(--blue); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+    .photo-icon { font-size: 3rem; opacity: 0.4; }
+    .about-text p { font-size: 0.95rem; color: #444; line-height: 1.9; margin-bottom: 1.2rem; font-weight: 300; }
+    .about-text strong { color: var(--blue); font-weight: 600; }
+    .about-text em { color: var(--fuchsia); font-style: normal; font-weight: 600; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .tag { font-size: 0.78rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 50px; }
+    .tb { background: rgba(0,87,255,0.08); color: var(--blue); border: 1px solid rgba(0,87,255,0.2); }
+    .tp { background: rgba(255,0,144,0.08); color: var(--fuchsia); border: 1px solid rgba(255,0,144,0.2); }
+
+    /* SKILLS */
+    .skills-bg { background: var(--dark); }
+    .skills-bg .sec-label { color: var(--fuchsia-light); }
+    .skills-bg .sec-title { color: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .skill-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem; transition: border-color 0.3s, transform 0.3s; }
+    .skill-card:hover { transform: translateY(-4px); }
+    .skill-card:nth-child(1):hover { border-color: var(--blue); }
+    .skill-card:nth-child(2):hover { border-color: var(--fuchsia); }
+    .skill-card:nth-child(3):hover { border-color: var(--blue-light); }
+    .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .skill-card h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .skill-card:nth-child(1) h4 { color: var(--blue-light); }
+    .skill-card:nth-child(2) h4 { color: var(--fuchsia-light); }
+    .skill-card:nth-child(3) h4 { color: #7DD3FC; }
+    .skill-card ul { list-style: none; }
+    .skill-card li { font-size: 0.85rem; color: rgba(255,255,255,0.65); font-weight: 300; padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 0.6rem; }
+    .skill-card li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+    .skill-card:nth-child(1) li::before { background: var(--blue-light); }
+    .skill-card:nth-child(2) li::before { background: var(--fuchsia-light); }
+    .skill-card:nth-child(3) li::before { background: #7DD3FC; }
+
+    /* EXP */
+    .exp-bg { background: var(--cream); }
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-date { font-size: 0.78rem; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .exp-type { display: inline-block; background: var(--fuchsia-pale); color: var(--fuchsia); font-size: 0.68rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .exp-content h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .exp-company { font-size: 0.85rem; color: var(--fuchsia); font-weight: 500; margin-bottom: 1rem; }
+    .exp-content ul { list-style: none; }
+    .exp-content li { font-size: 0.88rem; color: #555; font-weight: 300; line-height: 1.7; padding: 0.25rem 0 0.25rem 1.2rem; position: relative; }
+    .exp-content li::before { content: '→'; position: absolute; left: 0; color: var(--blue); font-size: 0.75rem; top: 0.3rem; }
+
+    /* PROJECTS */
+    .proj-bg { background: var(--white); }
+    .proj-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+    .proj-card { border-radius: 16px; padding: 2.2rem; border: 2px solid transparent; transition: all 0.3s; }
+    .proj-card:hover { transform: translateY(-6px); }
+    .proj-b { background: rgba(0,87,255,0.04); border-color: rgba(0,87,255,0.15); }
+    .proj-b:hover { border-color: var(--blue); box-shadow: 0 12px 40px rgba(0,87,255,0.1); }
+    .proj-p { background: rgba(255,0,144,0.04); border-color: rgba(255,0,144,0.15); }
+    .proj-p:hover { border-color: var(--fuchsia); box-shadow: 0 12px 40px rgba(255,0,144,0.1); }
+    .proj-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.6rem; }
+    .proj-card p { font-size: 0.86rem; color: #666; font-weight: 300; line-height: 1.7; }
+    .proj-stat { display: inline-block; margin-top: 1.2rem; font-size: 0.78rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 50px; }
+    .proj-b .proj-stat { background: rgba(0,87,255,0.1); color: var(--blue); }
+    .proj-p .proj-stat { background: rgba(255,0,144,0.1); color: var(--fuchsia); }
+
+    /* MEDIA */
+    .media-bg { background: var(--gray-light); }
+    .media-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .media-card { aspect-ratio: 1; border-radius: 12px; border: 2px dashed rgba(0,87,255,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; background: var(--white); color: var(--blue); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s; cursor: pointer; }
+    .media-card:hover { border-color: var(--fuchsia); color: var(--fuchsia); transform: scale(1.02); }
+    .media-icon { font-size: 2rem; }
+
+    /* CONTACT */
+    .contact-bg { background: var(--white); }
+    .contact-inner { background: linear-gradient(135deg, var(--blue) 0%, #003ECC 50%, var(--fuchsia) 100%); border-radius: 24px; padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden; }
+    .contact-inner::before { content: 'AM'; position: absolute; font-family: 'Syne', sans-serif; font-size: 16rem; font-weight: 800; color: rgba(255,255,255,0.05); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .contact-inner h2 { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; position: relative; }
+    .contact-inner p { color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 300; margin-bottom: 3rem; line-height: 1.8; position: relative; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; }
+    .contact-link { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-size: 0.85rem; font-weight: 500; padding: 0.9rem 1.8rem; border-radius: 50px; text-decoration: none; transition: all 0.3s; }
+    .contact-link:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+    footer { text-align: center; padding: 2.5rem; background: var(--dark); color: rgba(255,255,255,0.35); font-size: 0.78rem; letter-spacing: 0.08em; }
+    footer .b { color: var(--blue); }
+    footer .p { color: var(--fuchsia); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    @media(max-width:768px){
+      nav{padding:1rem 1.5rem;} nav ul{gap:1rem;} nav ul a{font-size:0.7rem;}
+      .hero{padding:7rem 1.5rem 4rem;} .hero-grid{grid-template-columns:1fr;gap:3rem;}
+      .wrap{padding:4rem 1.5rem;}
+      .about-grid{grid-template-columns:1fr;gap:2rem;} .photo-box{aspect-ratio:3/2;}
+      .skills-grid{grid-template-columns:1fr;}
+      .exp-item{grid-template-columns:1fr;gap:0.5rem;}
+      .proj-grid{grid-template-columns:1fr;}
+      .media-grid{grid-template-columns:repeat(2,1fr);}
+      .contact-inner{padding:3rem 1.5rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Amanda <span>MENGUE</span></div>
+  <ul>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">Disponible · Rentrée 2026</div>
+      <h1><span class="blue">Commerce</span><br/><span class="pink">&</span> Digital<br/><span style="font-size:0.55em;letter-spacing:0.01em;font-weight:800;">Amanda MENGUE</span></h1>
+      <p class="hero-desc">Étudiante en <strong>Bachelor Commerce</strong> à PIGIER Clermont-Ferrand, en recherche d'alternance pour le <strong>MBA Commerce & Data</strong> dès septembre 2026. Créatrice de contenu, commerciale et communicante.</p>
+      <div class="hero-buttons">
+        <a href="#experiences" class="btn-primary">Voir mon parcours</a>
+        <a href="#contact" class="btn-secondary">Me contacter</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-name">Amanda MENGUE</div>
+        <div class="hero-card-title">Commerce · Marketing · Communication · Création digitale</div>
+        <div class="stats-grid">
+          <div class="stat-box"><span class="stat-num">57K</span><span class="stat-lbl">Abonnés TikTok</span></div>
+          <div class="stat-box"><span class="stat-num">+900</span><span class="stat-lbl">Abonnés gérés</span></div>
+          <div class="stat-box"><span class="stat-num">4+</span><span class="stat-lbl">Ans d'expérience</span></div>
+          <div class="stat-box"><span class="stat-num">Bac+3</span><span class="stat-lbl">Bachelor Commerce</span></div>
+        </div>
+        <div class="hero-badge"><div class="badge-dot"></div>Disponible pour alternance · Sept. 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="about-bg" id="apropos">
+  <div class="wrap">
+    <span class="sec-label">01 — À propos</span>
+    <h2 class="sec-title">Créative, commerciale & <span class="blue">digitale</span></h2>
+    <div class="bar"></div>
+    <div class="about-grid">
+      <div class="photo-box"><div class="photo-icon">📷</div><span>Photo à venir</span></div>
+      <div class="about-text">
+        <p>Je m'appelle Amanda MENGUE, étudiante en <strong>Bachelor Commerce</strong> à l'école PIGIER de Clermont-Ferrand. Passionnée par la communication, le marketing digital et le développement commercial, j'ai construit une expérience solide à travers plusieurs alternances et projets concrets.</p>
+        <p>Créatrice de contenu avec <strong>57 000 abonnés sur TikTok</strong>, je maîtrise l'ensemble de la chaîne de création : stratégie, tournage, montage, publication et analyse des performances.</p>
+        <p>En parallèle, j'accompagne des structures dans leur développement digital : création de comptes, gestion éditoriale, création graphique et relation client. Des proches et clients me contactent régulièrement pour la <em>réalisation de vidéos et d'affiches</em>.</p>
+        <p>Je prépare un <strong>MBA Commerce & Data</strong> en alternance pour la rentrée 2026, avec l'ambition de piloter des stratégies commerciales et marketing à forte valeur ajoutée.</p>
+        <div class="tags">
+          <span class="tag tb">Marketing Digital</span><span class="tag tp">Réseaux Sociaux</span>
+          <span class="tag tb">Montage Vidéo</span><span class="tag tp">Création Graphique</span>
+          <span class="tag tb">Commerce B2B</span><span class="tag tp">Relation Client</span>
+          <span class="tag tb">RSE</span><span class="tag tp">Pilotage de projet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="skills-bg" id="competences">
+  <div class="wrap">
+    <span class="sec-label">02 — Compétences</span>
+    <h2 class="sec-title">Ce que je <span class="blue">maîtrise</span></h2>
+    <div class="bar"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🎬</div>
+        <h4>Digital & Création</h4>
+        <ul>
+          <li>TikTok, Instagram, YouTube</li><li>Montage vidéo & courts métrages</li>
+          <li>Création d'affiches & visuels</li><li>Calendrier éditorial</li>
+          <li>Analyse de performance</li><li>Miniatures & thumbnails</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📈</div>
+        <h4>Commerce & Marketing</h4>
+        <ul>
+          <li>Prospection B2B</li><li>Relation & fidélisation client</li>
+          <li>Négociation commerciale</li><li>Stratégie marketing</li>
+          <li>CRM — notions HubSpot</li><li>Pilotage de projet</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✨</div>
+        <h4>Soft Skills</h4>
+        <ul>
+          <li>Créativité & sens esthétique</li><li>Autonomie & polyvalence</li>
+          <li>Prise de parole publique</li><li>Organisation & coordination</li>
+          <li>Adaptabilité terrain</li><li>Leadership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="exp-bg" id="experiences">
+  <div class="wrap">
+    <span class="sec-label">03 — Expériences</span>
+    <h2 class="sec-title">Mon <span class="blue">parcours</span></h2>
+    <div class="bar"></div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div><div class="exp-date">Janv. 2025 – Présent</div><span class="exp-type">En cours</span></div>
+        <div class="exp-content">
+          <h3>Chargée de Communication & Création Digitale</h3>
+          <div class="exp-company">Association culturelle — Responsable Communication</div>
+          <ul>
+            <li>Gestion et croissance d'un compte communautaire : +900 abonnés en moins d'un an</li>
+            <li>Gestion des réseaux sociaux (TikTok, Instagram, YouTube) : stratégie, contenus, miniatures</li>
+            <li>Réalisation et montage vidéo — courts métrages, événements, clips</li>
+            <li>Organisation de séminaires et concerts — coordination d'équipe</li>
+            <li>Direction artistique : définition mensuelle des tenues et thèmes visuels du groupe</li>
+            <li>Création d'affiches et supports visuels pour des clients (missions freelance)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div><div class="exp-date">Oct. 2025 – Présent</div><span class="exp-type">Alternance</span></div>
+        <div class="exp-content">
+          <h3>Alternante — Polyvalence & Adaptabilité terrain</h3>
+          <div class="exp-company">L'Olivier 63 — Restauration</div>
+          <ul>
+            <li>Intégration en milieu professionnel exigeant</li>
+            <li>Travail en équipe, gestion du temps et du stress en environnement dynamique</li>
+            <li>Développement de la rigueur et de l'adaptabilité professionnelle</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div><div class="exp-date">Nov. 2023 – Juil. 2024</div><span class="exp-type">Alternance</span></div>
+        <div class="exp-content">
+          <h3>Assistante Commerciale & Community Manager</h3>
+          <div class="exp-company">Restaurant Ducher</div>
+          <ul>
+            <li>Création et gestion des réseaux sociaux du restaurant</li>
+            <li>Prospection B2B pour le service traiteur et fidélisation clients</li>
+            <li>Vente et conseil client, prise de commande, encaissement</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div><div class="exp-date">Nov. 2022 – Jan. 2023</div><span class="exp-type">Stage</span></div>
+        <div class="exp-content">
+          <h3>Community Manager</h3>
+          <div class="exp-company">Dotiri Informatique</div>
+          <ul>
+            <li>Création et montage de vidéos pour TikTok et Instagram</li>
+            <li>Gestion du calendrier éditorial et suivi des publications</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div><div class="exp-date">Mars – Juin 2022</div><span class="exp-type">Service civique</span></div>
+        <div class="exp-content">
+          <h3>Chargée de Communication</h3>
+          <div class="exp-company">AAD 63</div>
+          <ul>
+            <li>Prospection physique et téléphonique pour développer le réseau</li>
+            <li>Mise en place d'un plan de communication et optimisation du site web</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-bg" id="projets">
+  <div class="wrap">
+    <span class="sec-label">04 — Projets</span>
+    <h2 class="sec-title">Réalisations <span class="pink">personnelles</span></h2>
+    <div class="bar"></div>
+    <div class="proj-grid">
+      <div class="proj-card proj-b">
+        <div class="proj-icon">🎵</div>
+        <h3>Créatrice de contenu TikTok</h3>
+        <p>Compte personnel avec une communauté engagée, croissance organique, production et montage de tous les contenus en autonomie complète.</p>
+        <span class="proj-stat">57 000 abonnés</span>
+      </div>
+      <div class="proj-card proj-p">
+        <div class="proj-icon">✂️</div>
+        <h3>Compte coiffure Instagram</h3>
+        <p>Création et gestion d'un compte de prestations coiffure (tresses, cheveux naturels 4C) — contenu, relation client, promotion des services.</p>
+        <span class="proj-stat">Projet entrepreneurial</span>
+      </div>
+      <div class="proj-card proj-p">
+        <div class="proj-icon">🎬</div>
+        <h3>Réalisations vidéo & affiches</h3>
+        <p>Vidéos, montages et affiches réalisés pour des proches et clients sur demande régulière — montage appris en autodidacte.</p>
+        <span class="proj-stat">Freelance</span>
+      </div>
+      <div class="proj-card proj-b">
+        <div class="proj-icon">📱</div>
+        <h3>Lancement de pages réseaux</h3>
+        <p>Création et configuration de comptes réseaux sociaux pour des particuliers et structures — stratégie, identité visuelle, premiers contenus.</p>
+        <span class="proj-stat">Plusieurs structures</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="media-bg" id="portfolio">
+  <div class="wrap">
+    <span class="sec-label">05 — Portfolio</span>
+    <h2 class="sec-title">Mes <span class="blue">créations</span></h2>
+    <div class="bar"></div>
+    <p style="color:var(--gray);font-size:0.9rem;font-weight:300;margin-bottom:2.5rem;line-height:1.8;">Captures d'écran, statistiques, visuels et vidéos — à venir prochainement ✨</p>
+    <div class="media-grid">
+      <div class="media-card"><div class="media-icon">📊</div><span>Stats réseaux</span></div>
+      <div class="media-card"><div class="media-icon">🎬</div><span>Vidéos</span></div>
+      <div class="media-card"><div class="media-icon">🖼️</div><span>Affiches</span></div>
+      <div class="media-card"><div class="media-icon">📸</div><span>Captures</span></div>
+      <div class="media-card"><div class="media-icon">✨</div><span>Créations</span></div>
+      <div class="media-card"><div class="media-icon">🎵</div><span>TikTok</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-bg" id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <h2>Travaillons ensemble 🚀</h2>
+      <p>Je suis à la recherche d'une alternance pour le MBA Commerce & Data<br/>dès la rentrée septembre 2026. N'hésitez pas à me contacter !</p>
+      <div class="contact-links">
+        <a href="mailto:mengueamanda@yahoo.com" class="contact-link">✉️ mengueamanda@yahoo.com</a>
+        <a href="tel:0745906562" class="contact-link">📞 07 45 90 65 62</a>
+        <a href="https://www.tiktok.com" target="_blank" class="contact-link">🎵 Mon TikTok</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 <span class="b">Amanda</span> <span class="p">MENGUE</span> — Commerce & Communication · Clermont-Ferrand</footer>
+
+</body>
+</html>
